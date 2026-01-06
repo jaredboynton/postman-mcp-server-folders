@@ -62,6 +62,8 @@ npm install
 npm run build
 ```
 
+### Cursor / Claude Desktop
+
 Configure your MCP client to point to the local build:
 
 ```json
@@ -77,6 +79,40 @@ Configure your MCP client to point to the local build:
     }
   }
 }
+```
+
+### VS Code
+
+VS Code uses a different MCP configuration schema. Create a `.vscode/mcp.json` file in your project:
+
+```json
+{
+  "servers": {
+    "postman-api-mcp": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["/path/to/postman-mcp-server-folders/dist/src/index.js"],
+      "options": {
+        "env": {
+          "POSTMAN_API_KEY": "${input:postman-api-key}"
+        }
+      }
+    }
+  },
+  "inputs": [
+    {
+      "id": "postman-api-key",
+      "type": "promptString",
+      "description": "Enter your Postman API key"
+    }
+  ]
+}
+```
+
+On Windows, use backslashes in the path:
+
+```json
+"args": ["C:\\Users\\username\\git\\postman-mcp-server-folders\\dist\\src\\index.js"]
 ```
 
 ---
